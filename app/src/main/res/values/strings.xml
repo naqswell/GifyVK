@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GifyVK</string>
+    <string name="search_hint">Введите фразу или слово для поиска…</string>
+    <string name="txtTitleLabel">Название:</string>
+    <string name="txtSourceLabel">Источник:</string>
+    <string name="check_your_internet_connection">Проверьте ваше интернет соединение</string>
+    <string name="wrong_url">Проверьте ваше интернет соединение</string>
+</resources>

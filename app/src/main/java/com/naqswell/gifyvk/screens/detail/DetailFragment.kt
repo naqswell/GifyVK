@@ -3,7 +3,6 @@ package com.naqswell.gifyvk.screens.detail
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +42,15 @@ class DetailFragment : Fragment() {
 
     private fun initObservers() {
         with(binding) {
+
+            detailViewModel.isErrorOccurred.observe(viewLifecycleOwner) { flag ->
+                if (flag) {
+                    txtError.visibility = View.GONE
+                } else {
+                    txtError.visibility = View.VISIBLE
+                }
+            }
+
             detailViewModel.gif.observe(viewLifecycleOwner) { gifData ->
                 gifData.data.title?.let { data ->
                     txtTitleLabel.visibility = View.VISIBLE
@@ -65,7 +73,11 @@ class DetailFragment : Fragment() {
                             internetIntent.data = Uri.parse(source)
                             startActivity(internetIntent)
                         } else {
-                            Snackbar.make(txtSource, resources.getString(R.string.wrong_url), Snackbar.LENGTH_SHORT)
+                            Snackbar.make(
+                                txtSource,
+                                resources.getString(R.string.wrong_url),
+                                Snackbar.LENGTH_SHORT
+                            )
                                 .setAction("Ok") {}
                                 .show()
                         }

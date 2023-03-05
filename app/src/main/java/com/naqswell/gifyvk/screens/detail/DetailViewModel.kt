@@ -8,6 +8,9 @@ import kotlinx.coroutines.launch
 class DetailViewModel constructor(private val giphyRepository: GiphyRepository) :
     ViewModel() {
 
+    private val _isErrorOccurred = MutableLiveData(false)
+    val isErrorOccurred = _isErrorOccurred
+
     private val _gif = MutableLiveData<GetByIdResponse>()
     val gif = _gif
 
@@ -16,8 +19,11 @@ class DetailViewModel constructor(private val giphyRepository: GiphyRepository) 
             giphyRepository.getGifById(id)
                 .onSuccess { response ->
                     _gif.value = response
+                    _isErrorOccurred.value = true
                 }
-                .onFailure {}
+                .onFailure {
+                    _isErrorOccurred.value = true
+                }
         }
     }
 
